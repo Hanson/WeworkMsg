@@ -18,7 +18,13 @@ WeworkMsg 会以服务运行，对外暴露接口提供服务，开发者只需�
 
 执行 `./WeworkMsg`
 
-## 使用
+## 运行
+
+* 下载最新版本 https://github.com/Hanson/WeworkMsg/releases/
+* 在 WeworkMsg 目录下新建文件 `.env` 和 `private_key.pem`，并进行配置
+* 运行 `./WeworkMsg`
+
+## 接口调用
 
 服务提供了两个接口，均以 POST json 的方式进行调用
 
@@ -122,3 +128,5 @@ func main() {
    fmt.Println(string(body))
 }
 ```
+
+如需要其他语言例子，可以提 issue
