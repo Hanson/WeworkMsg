@@ -12,6 +12,21 @@ import (
 	"net/http"
 )
 
+type ChatMessage struct {
+	Id         string   `json:"id"`
+	From       string   `json:"from"`
+	ToList     []string `json:"to_list"`
+	Action     string   `json:"action"`
+	Type       string   `json:"type"`
+	TextMessage WeWorkFinanceSDK.TextMessage `json:"text_message"`
+	ImageMessage WeWorkFinanceSDK.ImageMessage `json:"image_message"`
+	RevokeMessage WeWorkFinanceSDK.RevokeMessage `json:"revoke_message"`
+	AgreeMessage WeWorkFinanceSDK.AgreeMessage `json:"agree_message"`
+	VoiceMessage WeWorkFinanceSDK.VoiceMessage `json:"voice_message"`
+	VideoMessage WeWorkFinanceSDK.VideoMessage `json:"video_message"`
+	CardMessage WeWorkFinanceSDK.CardMessage `json:"card_message"`
+}
+
 func main() {
 	log.SetFlags(log.Ltime | log.Lshortfile)
 
@@ -49,7 +64,7 @@ func main() {
 			return
 		}
 
-		var chatInfoList []WeWorkFinanceSDK.ChatMessage
+		var chatInfoList []ChatMessage
 
 		for _, chatData := range chatDataList {
 			//消息解密
@@ -58,8 +73,33 @@ func main() {
 				responseError(writer, err)
 				return
 			}
+			
+			var chatMessage ChatMessage
+			
+			chatMessage.Id = chatInfo.Id
+			chatMessage.From = chatInfo.From
+			chatMessage.ToList = chatInfo.ToList
+			chatMessage.Action = chatInfo.Action
+			chatMessage.Type = chatInfo.Type
 
-			chatInfoList = append(chatInfoList, chatInfo)
+			switch chatInfo.Type {
+			case "text":
+				chatMessage.TextMessage = chatInfo.GetTextMessage()
+			case "image":
+				chatMessage.ImageMessage = chatInfo.GetImageMessage()
+			case "revoke":
+				chatMessage.RevokeMessage = chatInfo.GetRevokeMessage()
+			case "agree":
+				chatMessage.AgreeMessage = chatInfo.GetAgreeMessage()
+			case "voice":
+				chatMessage.VoiceMessage = chatInfo.GetVoiceMessage()
+			case "video":
+				chatMessage.VideoMessage = chatInfo.GetVideoMessage()
+			case "card":
+				chatMessage.CardMessage = chatInfo.GetCardMessage()
+			}
+
+			chatInfoList = append(chatInfoList, chatMessage)
 		}
 
 		responseOk(writer, chatInfoList)
