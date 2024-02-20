@@ -14,13 +14,8 @@ WeworkMsg 会以服务运行，对外暴露接口提供服务，开发者只需�
 
 ## 运行
 
-复制 libWeWorkFinanceSdk_C.so 动态库文件到系统动态链接库默认文件夹下，或者复制到任意文件夹并在当前文件夹下执行 export LD_LIBRARY_PATH=$(pwd)命令设置动态链接库检索地址
-
-执行 `./WeworkMsg`
-
-## 运行
-
 * 下载最新版本 https://github.com/Hanson/WeworkMsg/releases/
+* 复制 libWeWorkFinanceSdk_C.so 动态库文件到系统动态链接库默认文件夹下，或者复制到任意文件夹并在当前文件夹下执行 export LD_LIBRARY_PATH=$(pwd)命令设置动态链接库检索地址
 * 在 WeworkMsg 目录下新建文件 `.env` 和 `private_key.pem`，并进行配置
 * 运行 `./WeworkMsg`
 

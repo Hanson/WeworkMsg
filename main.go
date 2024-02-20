@@ -12,19 +12,11 @@ import (
 	"net/http"
 )
 
-type ChatMessage struct {
-	Id         string   `json:"id"`
-	From       string   `json:"from"`
-	ToList     []string `json:"to_list"`
-	Action     string   `json:"action"`
-	Type       string   `json:"type"`
-	TextMessage WeWorkFinanceSDK.TextMessage `json:"text_message"`
-	ImageMessage WeWorkFinanceSDK.ImageMessage `json:"image_message"`
-	RevokeMessage WeWorkFinanceSDK.RevokeMessage `json:"revoke_message"`
-	AgreeMessage WeWorkFinanceSDK.AgreeMessage `json:"agree_message"`
-	VoiceMessage WeWorkFinanceSDK.VoiceMessage `json:"voice_message"`
-	VideoMessage WeWorkFinanceSDK.VideoMessage `json:"video_message"`
-	CardMessage WeWorkFinanceSDK.CardMessage `json:"card_message"`
+type ChatData struct {
+	Seq          uint64      `json:"seq,omitempty"`           // 消息的seq值，标识消息的序号。再次拉取需要带上上次回包中最大的seq。Uint64类型，范围0-pow(2,64)-1
+	MsgId        string      `json:"msgid,omitempty"`         // 消息id，消息的唯一标识，企业可以使用此字段进行消息去重。
+	PublickeyVer uint32      `json:"publickey_ver,omitempty"` // 加密此条消息使用的公钥版本号。
+	Message      interface{} `json:"message"`
 }
 
 func main() {
@@ -64,7 +56,7 @@ func main() {
 			return
 		}
 
-		var chatInfoList []ChatMessage
+		var list []ChatData
 
 		for _, chatData := range chatDataList {
 			//消息解密
@@ -73,36 +65,34 @@ func main() {
 				responseError(writer, err)
 				return
 			}
-			
-			var chatMessage ChatMessage
-			
-			chatMessage.Id = chatInfo.Id
-			chatMessage.From = chatInfo.From
-			chatMessage.ToList = chatInfo.ToList
-			chatMessage.Action = chatInfo.Action
-			chatMessage.Type = chatInfo.Type
+
+			var cd ChatData
+
+			cd.Seq = chatData.Seq
+			cd.MsgId = chatData.MsgId
+			cd.PublickeyVer = chatData.PublickeyVer
 
 			switch chatInfo.Type {
 			case "text":
-				chatMessage.TextMessage = chatInfo.GetTextMessage()
+				cd.Message = chatInfo.GetTextMessage()
 			case "image":
-				chatMessage.ImageMessage = chatInfo.GetImageMessage()
+				cd.Message = chatInfo.GetImageMessage()
 			case "revoke":
-				chatMessage.RevokeMessage = chatInfo.GetRevokeMessage()
+				cd.Message = chatInfo.GetRevokeMessage()
 			case "agree":
-				chatMessage.AgreeMessage = chatInfo.GetAgreeMessage()
+				cd.Message = chatInfo.GetAgreeMessage()
 			case "voice":
-				chatMessage.VoiceMessage = chatInfo.GetVoiceMessage()
+				cd.Message = chatInfo.GetVoiceMessage()
 			case "video":
-				chatMessage.VideoMessage = chatInfo.GetVideoMessage()
+				cd.Message = chatInfo.GetVideoMessage()
 			case "card":
-				chatMessage.CardMessage = chatInfo.GetCardMessage()
+				cd.Message = chatInfo.GetCardMessage()
 			}
 
-			chatInfoList = append(chatInfoList, chatMessage)
+			list = append(list, cd)
 		}
 
-		responseOk(writer, chatInfoList)
+		responseOk(writer, list)
 	})
 	http.HandleFunc("/get_media_data", func(writer http.ResponseWriter, request *http.Request) {
 		defer request.Body.Close()
