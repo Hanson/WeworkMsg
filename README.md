@@ -130,3 +130,15 @@ func main() {
 ```
 
 如需要其他语言例子，可以提 issue
+
+## 加交流群
+
+![image](https://github.com/Hanson/WeworkMsg/assets/10583423/abff87b3-c6b6-4246-902e-a34929dc9373)
+
+## 相关项目
+* 开源scrm https://github.com/juhe-scrm/juhe-scrm
+* 高级企微接口 https://github.com/hanson/vbot
+* 聚合聊天 https://juhebot.com
+
+
+![cd788338d401375c814f0fd66f4fbb81](https://github.com/Hanson/vbot/assets/10583423/034ce0fb-12c2-4ce0-8335-cf5132b17bca)
