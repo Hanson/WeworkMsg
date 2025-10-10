@@ -3,7 +3,7 @@ module github.com/hanson/WeworkMsg
 go 1.19
 
 require (
-	github.com/NICEXAI/WeWorkFinanceSDK v1.0.13
+	github.com/NICEXAI/WeWorkFinanceSDK v1.3.0
 	github.com/joho/godotenv v1.5.1
 	github.com/tidwall/gjson v1.17.0
 	github.com/tidwall/sjson v1.2.5

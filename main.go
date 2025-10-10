@@ -60,7 +60,7 @@ func main() {
 
 		for _, chatData := range chatDataList {
 			//消息解密
-			chatInfo, err := client.DecryptData(chatData.EncryptRandomKey, chatData.EncryptChatMsg)
+			chatInfo, err := client.DecryptData(chatData.EncryptRandomKey, chatData.EncryptChatMsg, Cfg.RsaPrivateKey)
 			if err != nil {
 				responseError(writer, err)
 				return
@@ -88,9 +88,9 @@ func main() {
 			case "card":
 				cd.Message = chatInfo.GetCardMessage()
 			case "meeting_voice_call":
-				cd.Message = chatInfo.GetMeetingMessage()
-			case "voiptext":
 				cd.Message = chatInfo.GetMeetingVoiceCallMessage()
+			case "voiptext":
+				cd.Message = chatInfo.GetVoiptextMessage()
 			}
 
 			list = append(list, cd)
