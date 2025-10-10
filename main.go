@@ -87,6 +87,10 @@ func main() {
 				cd.Message = chatInfo.GetVideoMessage()
 			case "card":
 				cd.Message = chatInfo.GetCardMessage()
+			case "meeting_voice_call":
+				cd.Message = chatInfo.GetMeetingMessage()
+			case "voiptext":
+				cd.Message = chatInfo.GetMeetingVoiceCallMessage()
 			}
 
 			list = append(list, cd)
