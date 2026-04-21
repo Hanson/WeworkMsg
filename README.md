@@ -47,12 +47,13 @@ CORP_SECRET=你的会话存档Secret
 ### 3. 启动
 
 ```bash
-# 设置动态链接库检索路径（选择其一即可）
+# WeworkMsg 运行时需要加载 libWeWorkFinanceSdk_C.so 动态库。
+# 以下两种方式选择其一即可：
 
-# 方式一：复制到系统动态链接库目录
+# 方式一：复制到系统库目录（推荐，设置一次永久生效）
 cp libWeWorkFinanceSdk_C.so /usr/lib/
 
-# 方式二：在当前目录设置环境变量
+# 方式二：放在 WeworkMsg 同目录，通过环境变量指定检索路径
 export LD_LIBRARY_PATH=$(pwd)
 
 # 启动服务
@@ -222,10 +223,6 @@ wework-cli chat --seq 500 --output batch2.json
 
 ![交流群](images/qrcode.jpg)
 
-## 相关项目
-* 开源scrm https://github.com/juhe-scrm/juhe-scrm
-* 高级企微接口 https://github.com/hanson/vbot
-* 聚合聊天 https://juhebot.com
+## 赞助商
 
-
-![cd788338d401375c814f0fd66f4fbb81](https://github.com/Hanson/vbot/assets/10583423/034ce0fb-12c2-4ce0-8335-cf5132b17bca)
+[![JuheBot](images/sponsor.jpg)](https://juhebot.com)
