@@ -89,12 +89,6 @@ sudo mv wework-cli /usr/local/bin/
 # Windows：直接使用 wework-cli-windows-amd64.exe，可重命名为 wework-cli.exe
 ```
 
-自行编译（需要 Go 环境）：
-
-```bash
-make build-cli
-```
-
 验证安装：
 
 ```bash
