@@ -1,4 +1,4 @@
-# WeworkMsgSdk
+# WeworkMsg
 企业微信会话存档服务，提供 CLI 客户端和 HTTP 接口
 
 ## 介绍
