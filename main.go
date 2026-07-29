@@ -72,25 +72,10 @@ func main() {
 			cd.MsgId = chatData.MsgId
 			cd.PublickeyVer = chatData.PublickeyVer
 
-			switch chatInfo.Type {
-			case "text":
-				cd.Message = chatInfo.GetTextMessage()
-			case "image":
-				cd.Message = chatInfo.GetImageMessage()
-			case "revoke":
-				cd.Message = chatInfo.GetRevokeMessage()
-			case "agree":
-				cd.Message = chatInfo.GetAgreeMessage()
-			case "voice":
-				cd.Message = chatInfo.GetVoiceMessage()
-			case "video":
-				cd.Message = chatInfo.GetVideoMessage()
-			case "card":
-				cd.Message = chatInfo.GetCardMessage()
-			case "meeting_voice_call":
-				cd.Message = chatInfo.GetMeetingVoiceCallMessage()
-			case "voiptext":
-				cd.Message = chatInfo.GetVoiptextMessage()
+			cd.Message, err = decodeChatMessage(chatInfo)
+			if err != nil {
+				responseError(writer, err)
+				return
 			}
 
 			list = append(list, cd)
